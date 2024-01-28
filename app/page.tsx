@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type CircleProps = {
   color: string;
@@ -83,6 +85,35 @@ function Footer() {
   );
 }
 
+function WastingTime() {
+  return (
+    <div className="flex justify-center mt-5 pt-2">
+      <div className="w-8/12 bg-yellow-500 rounded-sm">
+        <div
+          className="border border-black h-full w-full bg-white p-5 rounded-sm  "
+          style={{ transform: `translate(-6px, -6px)` }}
+        >
+          <p className="text-black font-bold text-2xl">
+            Stop wasting time applying to 100s of jobs. Just tell us what you
+            want, and we will do all the work for you!
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HowItWorks() {
+  return (
+    <span>
+      <div className="relative">
+        <p className="font-bold z-10 relative text-2xl">How It Works?</p>
+        <HighlightText />
+      </div>
+    </span>
+  );
+}
+
 function Circle({ color, size }: CircleProps) {
   return (
     <div
@@ -150,19 +181,52 @@ function Banner() {
           <HighlightText />
         </div>
       </div>
+      <div className="flex justify-center mt-5 gap-2">
+        <Button>Join PDA</Button>
+        <Button variant={"ghost"} className="border-b border-black">
+          Hire Talent
+        </Button>
+      </div>
+      <div className="flex justify-center mt-2 mb-6 ">
+        <p>Looking for to hire instead?</p>
+        <p>Submit your requirements</p>
+      </div>
+      <div className="absolute right-0">
+        <Image
+          src={"/assets/swiggly.png"}
+          height={50}
+          width={100}
+          alt="Decoration"
+        />
+        <Image
+          src={"/assets/swiggly.png"}
+          height={50}
+          width={100}
+          alt="Decoration"
+        />
+      </div>
     </div>
   );
 }
 
 function StepsTab() {
   return (
-    <div className="w-full flex justify-center">
-      <div className="max-w-[30%]">
-        {DATA.map((item, idx) => (
-          <StepItem {...item} isLast={idx === DATA.length - 1} />
-        ))}
-      </div>
-    </div>
+    <Tabs defaultValue="candidates">
+      <TabsList className="flex flex-1">
+        <TabsTrigger value="candidates">For Candidates</TabsTrigger>
+        <TabsTrigger value="recruiter">For Recruiters</TabsTrigger>
+      </TabsList>
+      <TabsContent value="candidates">
+        <div className="w-full flex justify-center">
+          <div className="max-w-[30%]">
+            {DATA.map((item, idx) => (
+              <StepItem {...item} isLast={idx === DATA.length - 1} />
+            ))}
+          </div>
+        </div>
+      </TabsContent>
+      <TabsContent value="recruiter">Change your recruiter here.</TabsContent>
+    </Tabs>
   );
 }
 
@@ -171,6 +235,8 @@ export default function Home() {
     <main className="flex min-h-screen flex-col">
       <Header />
       <Banner />
+      <WastingTime />
+      <HowItWorks />
       <StepsTab />
       <Footer />
     </main>
